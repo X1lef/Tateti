@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css"></link>
+    <title>Ta Te Ti</title>
+    <script src="js/jquery.js"></script>
+    <script src="js/cerebro.js"></script>
+  </head>
+  <body>
+    <div id="tablero">
+      <select name="nivel"> 
+        <option value="0">Fácil</option>
+        <option value="1">Medio</option>
+        <option value="2">Imposible</option>
+        <option value="3">Jugar contra un amigo</option>
+      </select>
+      
+        <table class="tateti" border="5">
+            <tr>
+              <td data-colum="0,0"></td>
+              <td data-colum="0,1"></td>
+              <td data-colum="0,2"></td>
+            </tr>
+            <tr>
+              <td data-colum="1,0"></td>
+              <td data-colum="1,1"></td>
+              <td data-colum="1,2"></td>
+            </tr>
+            <tr>
+              <td data-colum="2,0"></td>
+              <td data-colum="2,1"></td>
+              <td data-colum="2,2"></td>
+            </tr>
+        </table>
+      </div>
+      <button id="btnJugarDeNuevo">Jugar de nuevo</button>
+  </body>
+</html>
