@@ -3,6 +3,7 @@ const REDONDO = 'O', CRUZ = 'X'
 var ficha = CRUZ,
 cantCeldasPulsadas = 0,
 itemSelec = 0,
+comienza = 'hum'
 terminarJuego = false,
 tablero = new Array (new Array (3), new Array (3), new Array (3))
 
@@ -67,9 +68,17 @@ var jugarDeNuevo = () => {
         }
     }
 
+    if (terminarJuego) {
+        comienza = comienza == 'hum' ? 'maq' : 'hum'
+    }
+    
     terminarJuego = false
     cantCeldasPulsadas = 0
     ficha = CRUZ
+
+    if (comienza == 'maq') {
+        elegirCeldaAlAzar ()
+    }
 }
 
 var hayGanador = function () {
@@ -404,4 +413,182 @@ function seleccionarCelda (posc) {
     var i = parseInt (Math.random () * posc.length)
     var posc = posc [i].split(',')
     actualizarCelda (posc [0], posc [1])
+}
+
+function generarAmenazaDoble () {
+    var posc = []
+
+    //Amenaza 1.
+    if (tablero [1][0].text () == ficha) {
+        if (!tablero [0][1].text ()) {
+            posc.push ('0,1')
+        }
+
+        if (!tablero [2][1].text ()) {
+            posc.push ('2,1')
+        }
+
+    } else if (tablero [0][1].text () == ficha) {
+        if (!tablero [1][0].text ()) {
+            posc.push ('1,0')
+        }
+
+        if (!tablero [1][2].text ()) {
+            posc.push ('1,2')
+        }
+
+    } else if (tablero [1][2].text () == ficha) {
+        if (!tablero [0][1].text ()) {
+            posc.push ('0,1')
+        }
+
+        if (!tablero [2][1].text ()) {
+            posc.push ('2,1')
+        }
+        
+    } else if (tablero [2][1].text () == ficha) {
+        if (!tablero [1][0].text ()) {
+            posc.push ('1,0')
+        }
+
+        if (!tablero [1][2].text ()) {
+            posc.push ('1,2')
+        }
+    }
+
+    //Amenaza 2.
+    if (tablero [1][1].text () && tablero [1][1].text () != ficha) {
+        if (tablero [0][0].text () == ficha) {
+            posc.push ('2,2')
+
+        } else if (tablero [2][2].text () == ficha) {
+            posc.push ('0,0')
+
+        } else if (tablero [2][0].text () == ficha) {
+            posc.push ('0,2')
+
+        } else if (tablero [0][2].text () == ficha) {
+            posc.push ('2,0')
+        }
+    }
+
+    //Amenaza 3.
+    if (tablero [1][1].text () == ficha) {
+        if (tablero [0][0].text () && tablero [0][0].text () != ficha) {
+            posc.push ('2,2')
+
+        } else if (tablero [0][2].text () && tablero [0][2].text () != ficha) {
+            posc.push ('2,0')
+
+        } else if (tablero [2][0].text () && tablero [2][0].text () != ficha) {
+            posc.push ('0,2')
+
+        } else if (tablero [2][2].text () && tablero [2][2].text () != ficha) {
+            posc.push ('0,0')
+        }
+
+    } else if (tablero [0][0].text () && tablero [0][0].text () != ficha && tablero [2][2].text () == ficha ||
+        tablero [0][2].text () && tablero [0][2].text () != ficha && tablero [2][0].text () == ficha ||
+        tablero [2][0].text () && tablero [2][0].text () != ficha && tablero [0][2].text () == ficha ||
+        tablero [2][2].text () && tablero [2][2].text () != ficha && tablero [0][0].text () == ficha) {
+
+        posc.push ('1,1')
+    } 
+
+    //Amenaza 4.
+    if (tablero [1][0].text() == ficha) {
+        if (!tablero [0][2].text ()) {
+            posc.push ('0,2')
+        }
+
+        if (!tablero [2][2].text ()) {
+            posc.push ('2,2')
+        }
+
+    } else if (tablero [0][1].text () == ficha) {
+        if (!tablero [2][0].text ()) {
+            posc.push ('2,0')
+        }
+        
+        if (!tablero [2][2].text ()) {
+            posc.push ('2,2')
+        }
+
+    } else if (tablero [1][2].text () == ficha) {
+        if (!tablero [0][0].text ()) {
+            posc.push ('0,0')
+        }
+        
+        if (!tablero [2][0].text ()) {
+            posc.push ('2,0')
+        }
+
+    } else if (tablero [2][1].text () == ficha) {
+        if (!tablero [0][0].text ()) {
+            posc.push ('0,0')
+        }
+        
+        if (!tablero [0][2].text ()) {
+            posc.push ('0,2')
+        }
+
+    } else if (tablero [2][0].text () == ficha) {
+        if (!tablero [0][1].text ()) {
+            posc.push ('0,1')
+        }
+        
+        if (!tablero [1][2].text ()) {
+            posc.push ('1,2')
+        }
+
+    } else if (tablero [0][2].text () == ficha) {
+        if (!tablero [1][0].text ()) {
+            posc.push ('1,0')
+        }
+        
+        if (!tablero [2][1].text ()) {
+            posc.push ('2,1')
+        }
+
+    } else if (tablero [2][2].text () == ficha) {
+        if (!tablero [1][0].text ()) {
+            posc.push ('1,0')
+        }
+
+        if (!tablero [0][1].text ()) {
+            posc.push ('0,1')
+        }
+
+    } else if (tablero [0][0].text () == ficha) {
+        if (!tablero [1][2].text ()) {
+            posc.push ('1,2')
+        }
+
+        if (!tablero [2][1].text ()) {
+            posc.push ('2,1')
+        }
+    }
+
+    //Amenaza 5.
+    if (tablero [1][1].text () == ficha) {
+        if (tablero [1][0].text () && tablero [1][0].text () != ficha) {
+            posc.push ('0,2', '2,2')
+
+        } else if (tablero [0][1].text () && tablero [0][1].text () != ficha) {
+            posc.push ('2,0', '2,2')
+
+        } else if (tablero [1][2].text () && tablero [1][2].text () != ficha) {
+            posc.push ('0,0', '2,0')
+
+        } else if (tablero [2][1].text () && tablero [2][1].text () != ficha) {
+            posc.push ('0,0', '0,2')
+        }
+    }
+
+    if (posc.length) {
+        seleccionarCelda (posc)
+        return true
+    }
+    
+    return false
 }
