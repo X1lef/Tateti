@@ -391,6 +391,13 @@ function determinarNivelDeMaq () {
         }
         if (cantCeldasPulsadas > 2 && amenazaSimple ()) return
     }
+    if (comienza == 'maq') {
+        if (cantCeldasPulsadas == 2) {
+            if (generarAmenazaDoble ()) return
+
+        }
+    }
+
     if (itemSelec == 2) {
         if (cantCeldasPulsadas < 6 && amenazaDoble ()) return
     }
