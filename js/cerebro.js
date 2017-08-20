@@ -399,7 +399,7 @@ function determinarNivelDeMaq () {
     }
 
     if (itemSelec == 2) {
-        if (cantCeldasPulsadas < 6 && amenazaDoble ()) return
+        if (cantCeldasPulsadas > 2 && cantCeldasPulsadas < 6 && amenazaDoble ()) return
     }
 
     if (cantCeldasPulsadas != 9) elegirCeldaAlAzar ()
